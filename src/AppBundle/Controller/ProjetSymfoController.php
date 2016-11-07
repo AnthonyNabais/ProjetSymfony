@@ -114,7 +114,7 @@ class ProjetSymfoController extends Controller
     		->add('name', TextType::class, array('attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
     		->add('ip', TextType::class, array('attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
     		->add('user', TextType::class, array('attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
-    		->add('room', ChoiceType::class, array('choices' => array('1'=> '1', '2'=> '2', '3'=> '3', '4'=> '4'), 'attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
+    		->add('room', ChoiceType::class, array('choices' => array('1'=> '1', '2'=> '2', '3'=> '3', '4'=> '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9'), 'attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
     		->add('add', SubmitType::class, array('label' => 'Create Machine', 'attr' => array ('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
 
     		->getForm();
@@ -127,6 +127,7 @@ class ProjetSymfoController extends Controller
     		$ip = $form['ip']->getData();
     		$user = $form['user']->getData();
     		$room = $form['room']->getData();
+            $state = 0;
 
     		$now = new\DateTime('now');
 
@@ -135,6 +136,7 @@ class ProjetSymfoController extends Controller
     		$machine->setUser($user);
     		$machine->setRoom($room);
     		$machine->setCreationdate($now);
+            $machine->setState($state);
 
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($machine);
@@ -172,7 +174,7 @@ class ProjetSymfoController extends Controller
     		->add('name', TextType::class, array('attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
     		->add('ip', TextType::class, array('attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
     		->add('user', TextType::class, array('attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
-    		->add('room', ChoiceType::class, array('choices' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'), 'attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
+    		->add('room', ChoiceType::class, array('choices' => array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9'), 'attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
     		->add('add', SubmitType::class, array('label' => 'Edit Machine', 'attr' => array ('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
 
     		->getForm();
@@ -210,6 +212,56 @@ class ProjetSymfoController extends Controller
         return $this->render('projet/edit.html.twig', array ('machine' => $machine, 'form' => $form->createView()));
     }
 
+
+    /**
+     * @Route("/projet/editroom/{id}", name="projet_editroom")
+     */
+    public function editroomAction($id, Request $request)
+        {
+            $room = $this->getDoctrine()
+                ->getRepository('AppBundle:Rooms')
+                //->findBy(array('room' => '1' ));
+                ->find($id);
+
+
+
+                $room->setName($room->getName());
+
+
+            $form = $this->createFormBuilder($room)
+                ->add('name', TextType::class, array('attr' => array ('class' => 'form-controle', 'style' => 'margin-bottom:15px')))
+                ->add('add', SubmitType::class, array('label' => 'Edit Room', 'attr' => array ('class' => 'btn btn-primary', 'style' => 'margin-bottom:15px')))
+
+
+                ->getForm();
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $name = $form['name']->getData();
+
+
+                $em = $this->getDoctrine()->getManager();
+                $room = $em->getRepository('AppBundle:Rooms')->find($id);
+
+                $room->setName($name);
+
+
+
+
+                $em->flush();
+
+
+                return $this->redirectToRoute('projet_list');
+
+            }
+
+
+            return $this->render('projet/editroom.html.twig', array ('room' => $room, 'form' => $form->createView()));
+        }
+
+
     /**
      * @Route("/projet/details/{id}", name="projet_details")
      */
@@ -237,6 +289,55 @@ class ProjetSymfoController extends Controller
     	$em->flush();
 
     	return $this->redirectToRoute('projet_list');
+    }
+
+    /**
+     * @Route("/projet/deleteroom/{id}", name="projet_deleteroom")
+     */
+    public function deleteroomAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $room = $em->getRepository('AppBundle:Rooms')->find($id);
+
+        $em->remove($room);
+        $em->flush();
+
+        return $this->redirectToRoute('projet_list');
+    }
+
+
+    /**
+     * @Route("/projet/status/{id}", name="projet_status")
+     */
+    public function statusAction($id, Request $request)
+    {
+        $machine = $this->getDoctrine()
+            ->getRepository('AppBundle:Machines');
+            
+            //->findBy(array('room' => '1' ));
+            //->find($id);
+
+            
+            $a = $machine->findOneBy(array('id' => $id));
+
+            //var_dump($a->getState());
+
+            if ($a->getState() == 0)
+            {
+                $a->setState(1);
+            }
+            else
+            {
+                $a->setState(0);
+            }
+
+
+
+
+            return $this->redirectToRoute('projet_list');
+
+        
+
     }
 
 }

@@ -2,9 +2,10 @@
 
 {% block body %}
 
-	
+	<h3>Welcome {{ app.user.username }}</h3>
 {% for room in rooms %}	
-	<h2 class="page-header">{{room.name}} - room #{{room.id}} </h2>
+	<h2 class="page-header">{{room.name}} - room #{{room.id}} <a href="/projetsymfo/web/app_dev.php/projet/editroom/{{room.id}}" class="btn btn-info btn-xs">Edit</a>
+	 <a href="/projetsymfo/web/app_dev.php/projet/deleteroom/{{room.id}}" class="btn btn-danger btn-xs ">Delete</a></h2>
 	<table class="table table-striped"> 
 	<thead> 
 	<tr> 
@@ -14,6 +15,7 @@
 	<th>Creator</th> 
 	<th>Creation date</th> 
 	<th>Room</th>
+	<th>State</th>
 
 
 
@@ -23,7 +25,7 @@
 	
 	 <tbody> 
 
-	 {% for machine in machines %}
+	 {% for machine in machines if machine.room == room.id %}
 
 	 <tr> 
 	 <th scope="row">{{machine.id}}</th> 
@@ -31,11 +33,13 @@
 	 <td>{{machine.ip}}</td> 
 	 <td>{{machine.user}}</td> 
 	 <td>{{machine.creationdate | date('F j, Y, g:i a')}}</td> 
-	 <td>{{machine.room}}</td> 
+	 <td>{{machine.room}}</td>
+	 <td>{% if machine.state == 0 %}<strong>Eteint</strong>{% else %}<strong>Allume</strong>{% endif %}</td> 
 	 <td>
 	 <a href="/projetsymfo/web/app_dev.php/projet/details/{{machine.id}}" class="btn btn-success">View</a>
 	 <a href="/projetsymfo/web/app_dev.php/projet/edit/{{machine.id}}" class="btn btn-default">Edit</a>
-	 <a href="/projetsymfo/web/app_dev.php/projet/delete/{{machine.id}}" class="btn btn-danger">Delete</a>  
+	 <a href="/projetsymfo/web/app_dev.php/projet/delete/{{machine.id}}" class="btn btn-danger">Delete</a>
+	 <a href="/projetsymfo/web/app_dev.php/projet/status/{{machine.id}}" class="btn btn-warning btn-xs">On/Off</a>  
 	 </td>
 	 </tr>  
 	 {% endfor %}

@@ -56,6 +56,13 @@ class Machines
      */
     private $room;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="state", type="integer")
+     */
+    private $state;
+
 
     /**
      * Get id
@@ -186,6 +193,31 @@ class Machines
     {
         return $this->room;
     }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return Machines
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return int
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
 
 }
 
