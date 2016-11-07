@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<hr>
+	<h2 class="page-header">{{machine.name}}</h2>
+	<ul class="list-group">
+	<li class="list-group-item">Ip: {{machine.ip}}</li>
+	<li class="list-group-item">Creator: {{machine.user}}</li>
+	<li class="list-group-item">Creation Date: <strong>{{machine.creationdate | date('F j, Y, g:i a')}}</strong></li>
+	<li class="list-group-item">Room: {{machine.room}}</li>
+	</ul>
+
+
+
+{% endblock %}

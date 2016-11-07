@@ -1,0 +1,14 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+login:
+    path: /
+    defaults:
+        _controller: AppBundle:ProjetSymfo:login
+
+login_check:
+    path: projet/login_check
+
+logout:
+    path: projet/logout

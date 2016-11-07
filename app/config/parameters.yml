@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: tatiana.inow.fr
+    database_port: 3306
+    database_name: groupe5
+    database_user: groupe5
+    database_password: aawcM
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 65fc4e2219585b94dc0626c4fba9bfaae725bf7e
