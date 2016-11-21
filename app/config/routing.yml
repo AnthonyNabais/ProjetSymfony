@@ -8,7 +8,7 @@ login:
         _controller: AppBundle:ProjetSymfo:login
 
 login_check:
-    path: projet/login_check
+    path: /login_check
 
 logout:
-    path: projet/logout
+    path: /logout

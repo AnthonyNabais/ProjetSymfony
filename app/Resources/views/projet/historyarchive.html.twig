@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>History Archive</h1>
+<br>
+<table class="table table-striped"> 
+<thead> 
+	<tr> 
+	<th><font size="5">Information</font></th> 
+	<th><font size="5">Name</font></th>
+	<th><font size="5">Date</font></th>
+	<th></th>
+	</tr> 
+</thead>
+
+<tbody>
+{% for historia in history |reverse %}
+ 
+	 <tr> 
+	 <td>{% if historia.type == 1 %}<font size= "4" color= "green">Room Added</font>{% endif %} {% if historia.type == 2 %}<font size= "4" color= "green">Machine Added</font>{% endif %}
+	 {% if historia.type == 3 %}<font size= "4" color= "red">Room Deleted</font>{% endif %} 
+	 {% if historia.type == 4 %}<font size= "4" color= "red">Machine Deleted</font>{% endif %} 
+	 {% if historia.type == 5 %}<font size= "4" color= "orange">Room Edited</font>{% endif %} 
+	 {% if historia.type == 6 %}<font size= "4" color= "orange">Machine Edited</font>{% endif %} 
+	 {% if historia.type == 7 %}<font size= "4" color= "green">Machine Turned On</font>{% endif %}
+	 {% if historia.type == 8 %}<font size= "4" color= "red">Machine Turned Off </font>{% endif %}  
+	 {% if historia.type == 9 %}<font size= "4" color= "dodgerblue">Ping Request</font>{% endif %}</td>
+	 <td><font size="4">{{historia.name}}</font></td>  
+	 <td><font size="4">{{historia.date | date('F j, Y, g:i a')}}</font></td> 
+  
+	 </tr>
+{% endfor %}
+</tbody>   
+</table>
+	
+{% endblock %}

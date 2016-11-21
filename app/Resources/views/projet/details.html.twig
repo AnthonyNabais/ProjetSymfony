@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+	<h1>Machine Details</h1>
 	<hr>
 	<h2 class="page-header">{{machine.name}}</h2>
 	<ul class="list-group">
-	<li class="list-group-item">Ip: {{machine.ip}}</li>
+	<li class="list-group-item">IP: {{machine.ip}}</li>
 	<li class="list-group-item">Creator: {{machine.user}}</li>
 	<li class="list-group-item">Creation Date: <strong>{{machine.creationdate | date('F j, Y, g:i a')}}</strong></li>
 	<li class="list-group-item">Room: {{machine.room}}</li>
+	<li class="list-group-item">State: {% if machine.state == 0 %}<strong>Off since {{machine.statedate | date('F j, Y, g:i a')}}</strong>{% else %}<strong>On since {{machine.statedate | date('F j, Y, g:i a')}}</strong>{% endif %}</li>
+	<li class="list-group-item">Connection: {% if machine.ping == 0 %}<strong>Last seen on {{machine.pingdate | date('F j, Y, g:i a')}}</strong>{% else %}<strong>Device connected since {{machine.pingdate | date('F j, Y, g:i a')}}</strong>{% endif %}</li>
 	</ul>
 
 

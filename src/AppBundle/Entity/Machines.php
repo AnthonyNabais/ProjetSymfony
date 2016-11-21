@@ -63,6 +63,28 @@ class Machines
      */
     private $state;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="ping", type="integer")
+     */
+    private $ping;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pingdate", type="datetime")
+     */
+    private $pingdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="statedate", type="datetime")
+     */
+    private $statedate;
+
+
 
     /**
      * Get id
@@ -216,6 +238,78 @@ class Machines
     public function getState()
     {
         return $this->state;
+    }
+    
+    /**
+     * Set ping
+     *
+     * @param integer $ping
+     *
+     * @return Machines
+     */
+    public function setPing($ping)
+    {
+        $this->ping = $ping;
+
+        return $this;
+    }
+
+    /**
+     * Get ping
+     *
+     * @return int
+     */
+    public function getPing()
+    {
+        return $this->ping;
+    }
+
+    /**
+     * Set pingdate
+     *
+     * @param \DateTime $pingdate
+     *
+     * @return Machines
+     */
+    public function setPingdate($pingdate)
+    {
+        $this->pingdate = $pingdate;
+
+        return $this;
+    }
+
+    /**
+     * Get pingdate
+     *
+     * @return \DateTime
+     */
+    public function getPingdate()
+    {
+        return $this->pingdate;
+    }
+
+    /**
+     * Set statedate
+     *
+     * @param \DateTime $statedate
+     *
+     * @return Machines
+     */
+    public function setStatedate($statedate)
+    {
+        $this->statedate = $statedate;
+
+        return $this;
+    }
+
+    /**
+     * Get statedate
+     *
+     * @return \DateTime
+     */
+    public function getStatedate()
+    {
+        return $this->statedate;
     }
 
 
